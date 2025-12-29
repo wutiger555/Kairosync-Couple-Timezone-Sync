@@ -1,31 +1,38 @@
+
 export interface UserProfile {
   id: string;
   name: string;
   location: string;
   timezoneOffset: number; // Hours from UTC
   avatarColor: string;
-  avatarEmoji?: string; // Optional emoji string
-  busySlots: number[]; // Array of hours (0-23) where user is busy
-  sleepSlots: number[]; // Array of hours (0-23) where user is sleeping
+  avatarEmoji?: string; 
+  avatarImage?: string; // Base64 data URL for custom photo
+  busySlots: number[]; 
+  sleepSlots: number[]; 
+  currentStatus?: string; 
+  mood?: 'focused' | 'longing' | 'joyful' | 'resting' | 'active'; // Ambient mood
+  syncDate?: string; // When the relationship/sync started
 }
 
 export interface CalendarEvent {
   id: string;
-  type: 'call' | 'date' | 'sleep' | 'other';
+  type: 'call' | 'date' | 'sleep' | 'other' | 'memory';
   utcMinutes: number;
   duration: number;
   title: string;
   isConfirmed: boolean;
-  dayOffset: number; // 0 for today, 1 for tomorrow, etc.
+  dayOffset: number; 
+  note?: string; 
 }
 
 export interface AppState {
   localUser: UserProfile;
   remoteUser: UserProfile;
-  selectedTimeUTC: number; // Minutes from UTC midnight
+  selectedTimeUTC: number; 
   dayOffset: number;
   isGoldenWindow: boolean;
   events: CalendarEvent[];
+  nextMeetingDate?: string; 
 }
 
 export enum TimeOfDay {
